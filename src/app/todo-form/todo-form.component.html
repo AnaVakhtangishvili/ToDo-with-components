@@ -1,0 +1,25 @@
+<div class="container__form d-flex my-4">
+  <form class="row gy-2 gx-3 align-items-start" *ngIf="formIsVisible">
+    <div class="col-auto">
+      <input type="text" class="form-control" id="autoSizingInput" placeholder="Write Task" #newTaskName>
+      <label for="autoSizingInput" class="text-capitalize text-danger" *ngIf="warningVisibility">{{ warning }}</label>
+    </div>
+
+    <div class="col-auto">
+      <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+      <select class="form-select text-capitalize" id="autoSizingSelect" #newLevel>
+        <option selected disabled="disabled" [ngValue]="undefined">Choose task level</option>
+        <option [ngValue]="taskLevelEnum.easy">{{ taskLevelEnum.easy }}</option>
+        <option [ngValue]="taskLevelEnum.medium">{{ taskLevelEnum.medium }}</option>
+        <option [ngValue]="taskLevelEnum.hard">{{ taskLevelEnum.hard }}</option>
+      </select>
+    </div>
+
+    <div class="col-auto">
+      <button class="btn btn-primary text-capitalize" (click)="addTask(newTaskName.value, newLevel.value)">add</button>
+    </div>
+  </form>
+
+  <button type="button" class="btn btn-primary text-capitalize" *ngIf="!formIsVisible" (click)="showForm()">new task</button>
+</div>
+

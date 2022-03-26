@@ -1,0 +1,57 @@
+<div
+  class="card col-lg-3 col-md-5 col-12 mb-3"
+  *ngFor="let status of taskStatusArr"
+>
+  <div class="card-header text-capitalize">
+    <i class="fa-solid fa-list me-2"></i>
+    {{ status }}
+  </div>
+
+  <div class="card-body">
+    <ul class="list-group">
+      <p class="fs-6 text-capitalize text-secondary" *ngIf="!amountByStatus(status)">{{ placeholderText }}</p>
+      <ng-container *ngFor="let task of tasks">
+        <ng-container *ngIf="task.taskStatus === status">
+          <li class="list-group-item fs-5 text-capitalize">
+            {{ task.taskName }}
+            <div class="btn-container d-flex justify-content-end">
+              <button
+                type="button"
+                class="btn btn-danger mx-1"
+                *ngIf="task.taskStatus === taskStatus.todo"
+                (click)="deleteTask(task.taskId)"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-success mx-1"
+                *ngIf="
+                  task.taskStatus === taskStatus.inProgress ||
+                  task.taskStatus === taskStatus.done
+                "
+                (click)="moveTaskBackward(task.taskId)"
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary mx-1"
+                *ngIf="
+                  task.taskStatus === taskStatus.todo ||
+                  task.taskStatus === taskStatus.inProgress
+                "
+                (click)="moveTaskForvard(task.taskId)"
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+            <span class="badge" [ngClass]="bedgeStyles(task.taskLevel)">
+              {{ task.taskLevel }}
+            </span>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </div>
+</div>
