@@ -17,7 +17,7 @@ export class TodoFormComponent implements OnInit {
   taskLevelEnum = TaskLevelEnum;
   formIsVisible: boolean = false;
   warningVisibility: boolean = false;
-  warning = 'please write task';
+  warning = 'task or task level is missing';
   initialId: number = 0;
 
   constructor() {}
@@ -29,7 +29,7 @@ export class TodoFormComponent implements OnInit {
   }
 
   addTask(name: string, level: string) {
-    if (!name) {
+    if (!name || level === 'Choose task level') {
       this.warningVisibility = true;
       return;
     }

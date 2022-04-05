@@ -27,8 +27,11 @@ export class TodoCardComponent implements OnInit {
   }
 
   deleteTask(id: number) {
-    this.tasks = this.tasks.filter((element) => element.taskId !== id);
-    console.log(this.tasks, 'bla');
+    const element = this.tasks.find(elem => elem.taskId === id);
+    if (element) {
+      const index = this.tasks.indexOf(element);
+      this.tasks.splice(index, 1);
+    }
   }
 
   moveTaskForvard(id: number) {
